@@ -1463,6 +1463,16 @@
           elements.forEach(function(el) {
             observer.observe(el);
           });
+
+          // Safety net: if any elements still haven't become visible
+          // after 1.5s (e.g. observer didn't fire), force them visible
+          setTimeout(function() {
+            elements.forEach(function(el) {
+              if (!el.classList.contains('visible')) {
+                el.classList.add('visible');
+              }
+            });
+          }, 1500);
         } else {
           // Fallback: show everything immediately
           elements.forEach(function(el) {
