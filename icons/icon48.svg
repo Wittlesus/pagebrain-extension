@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="bg48" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="1" y="1" width="46" height="46" rx="10" ry="10" fill="url(#bg48)"/>
+  <!-- Brain left lobe -->
+  <path d="M16,28 C13,28 11,25.5 11,22.5 C11,20 12.5,18 14.5,17.5 C14,16.5 14,15 15,13.5 C16.5,11.5 19,11 21,12 C22,10.5 23.5,10 24,10"
+        fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Brain right lobe -->
+  <path d="M32,28 C35,28 37,25.5 37,22.5 C37,20 35.5,18 33.5,17.5 C34,16.5 34,15 33,13.5 C31.5,11.5 29,11 27,12 C26,10.5 24.5,10 24,10"
+        fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Brain stem -->
+  <path d="M24,28 L24,35" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M20,35 L28,35" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Center line -->
+  <line x1="24" y1="10" x2="24" y2="28" stroke="white" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <!-- Brain folds left -->
+  <path d="M17,18 Q20,20 18,23" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Brain folds right -->
+  <path d="M31,18 Q28,20 30,23" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Sparkle top-right -->
+  <path d="M37,7 L38,10 L39,7 L38,4 Z" fill="white"/>
+  <path d="M35.5,7 L38,8 L40.5,7 L38,6 Z" fill="white"/>
+  <!-- Small sparkle -->
+  <path d="M34,12 L34.5,13 L35,12 L34.5,11 Z" fill="white" opacity="0.7"/>
+  <path d="M33.5,12 L34.5,12.5 L35.5,12 L34.5,11.5 Z" fill="white" opacity="0.7"/>
+</svg>

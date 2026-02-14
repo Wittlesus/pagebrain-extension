@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageBrain - Generate PNG Icons</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      padding: 40px;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #7C3AED, #3B82F6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle { color: #888; margin-bottom: 32px; }
+    .instructions {
+      background: #16213e;
+      border: 1px solid #2a2a4a;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .instructions h2 { color: #7C3AED; margin-bottom: 12px; font-size: 18px; }
+    .instructions ol { padding-left: 24px; }
+    .instructions li { margin-bottom: 6px; }
+    .instructions code {
+      background: #0d1117;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #3B82F6;
+    }
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .icon-card {
+      background: #16213e;
+      border: 1px solid #2a2a4a;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    .icon-card h3 { margin-bottom: 16px; color: #ccc; }
+    .preview-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 16px;
+      min-height: 150px;
+    }
+    .preview-area canvas {
+      border: 1px solid #2a2a4a;
+      background: repeating-conic-gradient(#2a2a4a 0% 25%, #1a1a2e 0% 50%) 0 0 / 16px 16px;
+    }
+    .preview-area img {
+      border: 1px dashed #444;
+    }
+    .size-label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+    button {
+      background: linear-gradient(135deg, #7C3AED, #3B82F6);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.85; }
+    button:active { transform: scale(0.98); }
+    .btn-group { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .download-all {
+      margin-top: 32px;
+      text-align: center;
+    }
+    .download-all button {
+      font-size: 16px;
+      padding: 14px 36px;
+    }
+    .note {
+      margin-top: 24px;
+      padding: 16px;
+      background: #1a1520;
+      border-left: 3px solid #7C3AED;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>PageBrain Icon Generator</h1>
+  <p class="subtitle">Generate PNG icon files for the Chrome extension</p>
+
+  <div class="instructions">
+    <h2>How to Generate PNG Icons</h2>
+    <ol>
+      <li>Open this file in a web browser (double-click or use <code>Live Server</code>).</li>
+      <li>The SVG icons are rendered automatically onto canvases below.</li>
+      <li>Click <strong>"Download PNG"</strong> for each size, or use <strong>"Download All PNGs"</strong>.</li>
+      <li>The downloaded files will be named <code>icon16.png</code>, <code>icon48.png</code>, and <code>icon128.png</code>.</li>
+      <li>Place the PNG files in the <code>icons/</code> folder alongside these SVG files.</li>
+      <li>Update your <code>manifest.json</code> to reference the PNG files:
+        <br><code>"icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }</code>
+      </li>
+    </ol>
+  </div>
+
+  <div class="icon-grid">
+    <!-- 16x16 -->
+    <div class="icon-card">
+      <h3>icon16.png</h3>
+      <div class="size-label">16 x 16 pixels &mdash; Toolbar icon</div>
+      <div class="preview-area">
+        <canvas id="canvas16" width="16" height="16"></canvas>
+        <canvas id="canvas16-zoom" width="128" height="128" title="8x zoom preview"></canvas>
+      </div>
+      <button onclick="downloadPNG(16)">Download PNG</button>
+    </div>
+
+    <!-- 48x48 -->
+    <div class="icon-card">
+      <h3>icon48.png</h3>
+      <div class="size-label">48 x 48 pixels &mdash; Extensions page</div>
+      <div class="preview-area">
+        <canvas id="canvas48" width="48" height="48"></canvas>
+      </div>
+      <button onclick="downloadPNG(48)">Download PNG</button>
+    </div>
+
+    <!-- 128x128 -->
+    <div class="icon-card">
+      <h3>icon128.png</h3>
+      <div class="size-label">128 x 128 pixels &mdash; Web Store</div>
+      <div class="preview-area">
+        <canvas id="canvas128" width="128" height="128"></canvas>
+      </div>
+      <button onclick="downloadPNG(128)">Download PNG</button>
+    </div>
+  </div>
+
+  <div class="download-all">
+    <button onclick="downloadAll()">Download All PNGs</button>
+  </div>
+
+  <div class="note">
+    <strong>Note:</strong> If the icons appear blank, make sure the SVG files
+    (<code>icon16.svg</code>, <code>icon48.svg</code>, <code>icon128.svg</code>)
+    are in the same directory as this HTML file. You may also need to serve this page
+    via a local server (e.g., <code>npx serve .</code> or VS Code Live Server) due
+    to browser CORS restrictions on local <code>file://</code> URLs.
+  </div>
+
+  <!-- Inline SVG sources as fallback (used if external files fail to load) -->
+  <script>
+    const svgSources = {
+      16: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <defs>
+    <linearGradient id="bg16" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="15" height="15" rx="3" ry="3" fill="url(#bg16)"/>
+  <ellipse cx="6.5" cy="8.5" rx="3" ry="3.5" fill="none" stroke="white" stroke-width="1.2"/>
+  <ellipse cx="9.5" cy="8.5" rx="3" ry="3.5" fill="none" stroke="white" stroke-width="1.2"/>
+  <line x1="8" y1="5" x2="8" y2="12" stroke="white" stroke-width="0.8"/>
+  <path d="M12.5,2.5 L13,3.5 L13.5,2.5 L13,1.5 Z" fill="white" opacity="0.9"/>
+  <path d="M12,2.5 L13,3 L14,2.5 L13,2 Z" fill="white" opacity="0.9"/>
+</svg>`,
+
+      48: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="bg48" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="46" height="46" rx="10" ry="10" fill="url(#bg48)"/>
+  <path d="M16,28 C13,28 11,25.5 11,22.5 C11,20 12.5,18 14.5,17.5 C14,16.5 14,15 15,13.5 C16.5,11.5 19,11 21,12 C22,10.5 23.5,10 24,10" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M32,28 C35,28 37,25.5 37,22.5 C37,20 35.5,18 33.5,17.5 C34,16.5 34,15 33,13.5 C31.5,11.5 29,11 27,12 C26,10.5 24.5,10 24,10" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M24,28 L24,35" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M20,35 L28,35" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="24" y1="10" x2="24" y2="28" stroke="white" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <path d="M17,18 Q20,20 18,23" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M31,18 Q28,20 30,23" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M37,7 L38,10 L39,7 L38,4 Z" fill="white"/>
+  <path d="M35.5,7 L38,8 L40.5,7 L38,6 Z" fill="white"/>
+  <path d="M34,12 L34.5,13 L35,12 L34.5,11 Z" fill="white" opacity="0.7"/>
+  <path d="M33.5,12 L34.5,12.5 L35.5,12 L34.5,11.5 Z" fill="white" opacity="0.7"/>
+</svg>`,
+
+      128: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg128" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="124" height="124" rx="24" ry="24" fill="url(#bg128)"/>
+  <rect x="2" y="2" width="124" height="124" rx="24" ry="24" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+  <path d="M40,76 C33,76 27,69 27,60 C27,54 30,49 34,47 C32,44 32,40 34,36 C37,30 43,28 49,30 C52,26 57,24 64,24" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M88,76 C95,76 101,69 101,60 C101,54 98,49 94,47 C96,44 96,40 94,36 C91,30 85,28 79,30 C76,26 71,24 64,24" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M64,76 L64,95" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <path d="M52,95 L76,95" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <line x1="64" y1="24" x2="64" y2="76" stroke="white" stroke-width="3" stroke-dasharray="5,4" opacity="0.6"/>
+  <path d="M42,44 Q50,50 45,60" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M36,55 Q42,58 40,66" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <path d="M86,44 Q78,50 83,60" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M92,55 Q86,58 88,66" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <g filter="url(#glow)">
+    <path d="M100,18 L102,26 L104,18 L102,10 Z" fill="white"/>
+    <path d="M96,18 L102,20 L108,18 L102,16 Z" fill="white"/>
+  </g>
+  <path d="M90,32 L91,35 L92,32 L91,29 Z" fill="white" opacity="0.8"/>
+  <path d="M89,32 L91,33 L93,32 L91,31 Z" fill="white" opacity="0.8"/>
+  <path d="M108,36 L108.5,38 L109,36 L108.5,34 Z" fill="white" opacity="0.5"/>
+  <path d="M107,36 L108.5,36.5 L110,36 L108.5,35.5 Z" fill="white" opacity="0.5"/>
+  <circle cx="95" cy="12" r="1.5" fill="white" opacity="0.4"/>
+  <circle cx="110" cy="25" r="1" fill="white" opacity="0.3"/>
+</svg>`
+    };
+
+    const sizes = [16, 48, 128];
+
+    /**
+     * Render an SVG string onto a canvas at the given size.
+     */
+    function renderSVGToCanvas(svgString, canvas, size) {
+      return new Promise((resolve, reject) => {
+        const ctx = canvas.getContext('2d');
+        const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+
+        img.onload = () => {
+          ctx.clearRect(0, 0, size, size);
+          ctx.drawImage(img, 0, 0, size, size);
+          URL.revokeObjectURL(url);
+          resolve();
+        };
+
+        img.onerror = (err) => {
+          URL.revokeObjectURL(url);
+          reject(err);
+        };
+
+        img.width = size;
+        img.height = size;
+        img.src = url;
+      });
+    }
+
+    /**
+     * Download a single PNG at the specified size.
+     */
+    function downloadPNG(size) {
+      const canvas = document.getElementById(`canvas${size}`);
+      const link = document.createElement('a');
+      link.download = `icon${size}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    /**
+     * Download all three PNG sizes.
+     */
+    function downloadAll() {
+      sizes.forEach((size, i) => {
+        setTimeout(() => downloadPNG(size), i * 300);
+      });
+    }
+
+    /**
+     * Initialize: render all SVGs onto their canvases.
+     */
+    async function init() {
+      for (const size of sizes) {
+        const canvas = document.getElementById(`canvas${size}`);
+        try {
+          // First try loading the external SVG file
+          const response = await fetch(`icon${size}.svg`);
+          if (response.ok) {
+            const svgText = await response.text();
+            await renderSVGToCanvas(svgText, canvas, size);
+          } else {
+            throw new Error('File not found');
+          }
+        } catch (e) {
+          // Fall back to inline SVG source
+          console.log(`Using inline SVG for icon${size} (external file not available)`);
+          await renderSVGToCanvas(svgSources[size], canvas, size);
+        }
+
+        // Create zoomed preview for 16px icon
+        if (size === 16) {
+          const zoomCanvas = document.getElementById('canvas16-zoom');
+          const ctx = zoomCanvas.getContext('2d');
+          ctx.imageSmoothingEnabled = false;
+          ctx.drawImage(canvas, 0, 0, 128, 128);
+        }
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

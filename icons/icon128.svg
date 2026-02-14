@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg128" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="2" y="2" width="124" height="124" rx="24" ry="24" fill="url(#bg128)"/>
+  <!-- Subtle inner shadow -->
+  <rect x="2" y="2" width="124" height="124" rx="24" ry="24" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+
+  <!-- Brain left lobe -->
+  <path d="M40,76 C33,76 27,69 27,60 C27,54 30,49 34,47
+           C32,44 32,40 34,36 C37,30 43,28 49,30
+           C52,26 57,24 64,24"
+        fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Brain right lobe -->
+  <path d="M88,76 C95,76 101,69 101,60 C101,54 98,49 94,47
+           C96,44 96,40 94,36 C91,30 85,28 79,30
+           C76,26 71,24 64,24"
+        fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Brain stem -->
+  <path d="M64,76 L64,95" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <path d="M52,95 L76,95" stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Center line (dashed) -->
+  <line x1="64" y1="24" x2="64" y2="76" stroke="white" stroke-width="3" stroke-dasharray="5,4" opacity="0.6"/>
+
+  <!-- Brain folds left -->
+  <path d="M42,44 Q50,50 45,60" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M36,55 Q42,58 40,66" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Brain folds right -->
+  <path d="M86,44 Q78,50 83,60" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M92,55 Q86,58 88,66" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Sparkle top-right (large) -->
+  <g filter="url(#glow)">
+    <path d="M100,18 L102,26 L104,18 L102,10 Z" fill="white"/>
+    <path d="M96,18 L102,20 L108,18 L102,16 Z" fill="white"/>
+  </g>
+
+  <!-- Sparkle medium -->
+  <path d="M90,32 L91,35 L92,32 L91,29 Z" fill="white" opacity="0.8"/>
+  <path d="M89,32 L91,33 L93,32 L91,31 Z" fill="white" opacity="0.8"/>
+
+  <!-- Sparkle small -->
+  <path d="M108,36 L108.5,38 L109,36 L108.5,34 Z" fill="white" opacity="0.5"/>
+  <path d="M107,36 L108.5,36.5 L110,36 L108.5,35.5 Z" fill="white" opacity="0.5"/>
+
+  <!-- Tiny dot sparkles -->
+  <circle cx="95" cy="12" r="1.5" fill="white" opacity="0.4"/>
+  <circle cx="110" cy="25" r="1" fill="white" opacity="0.3"/>
+</svg>

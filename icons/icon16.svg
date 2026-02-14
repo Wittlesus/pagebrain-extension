@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <defs>
+    <linearGradient id="bg16" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="0.5" y="0.5" width="15" height="15" rx="3" ry="3" fill="url(#bg16)"/>
+  <!-- Simplified brain: two lobes as overlapping circles -->
+  <ellipse cx="6.5" cy="8.5" rx="3" ry="3.5" fill="none" stroke="white" stroke-width="1.2"/>
+  <ellipse cx="9.5" cy="8.5" rx="3" ry="3.5" fill="none" stroke="white" stroke-width="1.2"/>
+  <!-- Center dividing line -->
+  <line x1="8" y1="5" x2="8" y2="12" stroke="white" stroke-width="0.8"/>
+  <!-- Sparkle / lightning bolt -->
+  <polygon points="11,3 9.5,6.5 11,6.5 9,9 10.5,9 8.5,13 10,8.5 8.5,8.5 10,5 8.5,5 10,2" fill="white" opacity="0"/>
+  <!-- Small sparkle star top-right -->
+  <path d="M12.5,2.5 L13,3.5 L13.5,2.5 L13,1.5 Z" fill="white" opacity="0.9"/>
+  <path d="M12,2.5 L13,3 L14,2.5 L13,2 Z" fill="white" opacity="0.9"/>
+</svg>
